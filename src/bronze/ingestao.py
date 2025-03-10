@@ -41,7 +41,7 @@ else :
 
 # DBTITLE 1,Incremental Load
 df_cdc = spark.read.format("csv").option("header", "true").load(f"/Volumes/raw/{database}/cdc")
-df_cdc.display()
+
 
 # COMMAND ----------
 
@@ -53,7 +53,7 @@ window_spec = Window.partitionBy(f"{id_field}").orderBy(col(f"{timestamp_field}"
 df_cdc_unique = df_cdc.withColumn("row_num", row_number().over(window_spec)) \
                 .filter("row_num = 1") \
                 .drop("row_num")
-df_cdc_unique.display()
+
 
 
 # COMMAND ----------
@@ -62,7 +62,7 @@ df_cdc_unique.display()
 
 
 bronze = delta.DeltaTable.forName(spark, f"{catalog}.{database}.{table}")
-bronze
+
 
 # COMMAND ----------
 
