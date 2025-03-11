@@ -25,5 +25,21 @@ Utilização de tecnica CDC - Change Data Capture para uma otimização da carga
 ![image](https://github.com/user-attachments/assets/0ff6ae4e-4bf1-4106-a500-830580103a62)
 
 
+Controle de toda a Linhagem do Dado
+
+![image](https://github.com/user-attachments/assets/166a1f48-79e9-4517-a334-ce67954993dd)
+
+
+Como produto final para a Área de Negocios, foi desenvolvido um Dashboard de NPS Reclamação com o Power Bi, feito a conexão direta com o cluster do Datalakehouse da camada Gold
+
+![image](https://github.com/user-attachments/assets/5d4d44d5-eb81-4e36-8146-0dfe5c5e846d)
+
+Utilizando-se da modelagem de dados Star-Schema, para uma maior otimização do modelo de dados. Simplificando consultas ad-hoc e construção de eventuais relatórios
+
+![image](https://github.com/user-attachments/assets/795ed2ac-f327-43d1-90e5-0d1ff11cb97e)
+
+
+
+
 
 
