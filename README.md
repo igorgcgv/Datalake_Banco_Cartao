@@ -20,6 +20,12 @@ Desenvolvimento de todo o pipeline de dados desde a RAW até a camada GOLD
 
 ![image](https://github.com/user-attachments/assets/162ca532-4bba-40a2-83f9-41628d11ce87)
 
+Utilizando do Scheduler do Workflow - Databricks para disparo automatico das atualizações de dados
+
+![image](https://github.com/user-attachments/assets/ce1da3bc-ce62-4958-abb5-fb47c4c5a78f)
+
+
+
 Utilização de tecnica CDC - Change Data Capture para uma otimização da carga, deixando de utilizar a Full Load
 
 ![image](https://github.com/user-attachments/assets/0ff6ae4e-4bf1-4106-a500-830580103a62)
@@ -37,6 +43,8 @@ Como produto final para a Área de Negocios, foi desenvolvido um Dashboard de NP
 Utilizando-se da modelagem de dados Star-Schema, para uma maior otimização do modelo de dados. Simplificando consultas ad-hoc e construção de eventuais relatórios
 
 ![image](https://github.com/user-attachments/assets/795ed2ac-f327-43d1-90e5-0d1ff11cb97e)
+
+Fim!
 
 
 
