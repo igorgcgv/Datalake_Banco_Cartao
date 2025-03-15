@@ -22,7 +22,7 @@ def table_exists(catalog,database,table) :
 database = "sys_reclamacao"
 table = "reclamacao"
 id_field = "Nome"
-timestamp_field ="modified_date""""
+timestamp_field ="modified_date"""
 
 
 catalog = "bronze"
