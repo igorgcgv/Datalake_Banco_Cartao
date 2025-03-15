@@ -1,40 +1,39 @@
 # Databricks notebook source
 # DBTITLE 1,Imports
-from pyspark.sql.window import Window
-from pyspark.sql.functions import row_number,col
+
 import delta
+import sys
+
+sys.path.insert(0, '../lib/')
+
+import utils
 
 
 # COMMAND ----------
 
 # DBTITLE 1,Fuction
-def table_exists(catalog,database,table) :
 
-    count = (spark.sql(f"SHOW TABLES FROM {catalog}.{database}")
-                .filter(f"DATABASE = '{database}' AND tableName = '{table}'")
-                .count())
-    return count ==1
 
 # COMMAND ----------
 
 # DBTITLE 1,Variaveis
-"""catalog = "bronze"
-database = "sys_reclamacao"
-table = "reclamacao"
+catalog = "bronze"
+database = "sys_transacao"
+table = "transacao"
 id_field = "Nome"
-timestamp_field ="modified_date"""
+timestamp_field ="modified_date"
 
-
+"""
 catalog = "bronze"
 database = dbutils.widgets.get("database")
 table = dbutils.widgets.get("table")
 id_field = dbutils.widgets.get("id_field")
-timestamp_field = dbutils.widgets.get("timestamp_field")
+timestamp_field = dbutils.widgets.get("timestamp_field")"""
 
 # COMMAND ----------
 
 # DBTITLE 1,Full Load
-if not table_exists(catalog,database,table):
+if not utils.table_exists(spark,catalog,database,table):
 
     print("Table does not exist")
 
@@ -46,8 +45,17 @@ else :
 
 # COMMAND ----------
 
+
+schema = utils.import_schema(table)
+
+# COMMAND ----------
+
 df_cdc = spark.read.format("csv").option("header", "true").load(f"/Volumes/raw/{database}/cdc") 
-schema = df_cdc.schema
+
+
+# COMMAND ----------
+
+schema.json()
 
 # COMMAND ----------
 

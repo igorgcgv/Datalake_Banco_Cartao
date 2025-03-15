@@ -1,0 +1,59 @@
+{
+  "fields": [
+    {
+      "metadata": {},
+      "name": "Nome",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Data_da_Reclamacao",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Categoria_da_Queixa",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Status_da_Reclamacao",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Tempo_de_Resolucao_dias",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Canal_da_Reclamacao",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Valor_Envolvido_na_Reclamacao",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "OP",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "modified_date",
+      "nullable": true,
+      "type": "string"
+    }
+  ],
+  "type": "struct"
+}
