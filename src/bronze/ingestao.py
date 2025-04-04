@@ -29,7 +29,7 @@ database = dbutils.widgets.get("database")
 table = dbutils.widgets.get("table")
 id_field = dbutils.widgets.get("id_field")
 timestamp_field = dbutils.widgets.get("timestamp_field")
-checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/
+checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"
 
 # COMMAND ----------
 
