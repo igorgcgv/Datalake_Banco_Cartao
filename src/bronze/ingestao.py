@@ -29,7 +29,7 @@ database = dbutils.widgets.get("database")
 table = dbutils.widgets.get("table")
 id_field = dbutils.widgets.get("id_field")
 timestamp_field = dbutils.widgets.get("timestamp_field")
-checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"
+
 
 # COMMAND ----------
 
@@ -38,7 +38,7 @@ if not utils.table_exists(spark,catalog,database,table):
 
     print("Table does not exist")
 
-    dbutils.fs.rm(checkpoint_location,True)
+    #dbutils.fs.rm(checkpoint_location,True)
 
     ingest_full_load = ingestors.ingestor(spark=spark,
                                             catalog=catalog,
