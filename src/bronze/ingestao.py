@@ -24,7 +24,7 @@ timestamp_field ="modified_date"
 checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"""
 
 
-catalog = "bronze"
+catalog = "raw"
 database = dbutils.widgets.get("database")
 table = dbutils.widgets.get("table")
 id_field = dbutils.widgets.get("id_field")
@@ -49,7 +49,7 @@ if not utils.table_exists(spark,catalog,database,table):
                                             timestamp_field=timestamp_field)
 
     
-    ingest_full_load.execute(f"/Volumes/raw/{database}/full_load/{table}/")
+    ingest_full_load.execute(f"/Volumes/bronze/{database}/full_load/{table}/")
 
 else :
     print("Table already exists")
