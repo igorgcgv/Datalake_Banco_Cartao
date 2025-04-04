@@ -44,7 +44,9 @@ if not utils.table_exists(spark,catalog,database,table):
                                             catalog=catalog,
                                             database=database,
                                             table=table,
-                                            data_format="csv")
+                                            data_format="csv",
+                                            id_field=id_field,
+                                            timestamp_field=timestamp_field)
 
     
     ingest_full_load.execute(f"/Volumes/raw/{database}/full_load/{table}/")
