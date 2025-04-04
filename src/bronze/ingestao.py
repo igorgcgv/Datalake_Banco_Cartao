@@ -17,13 +17,13 @@ import ingestors
 # Usar como exemplo
 
 """catalog = "bronze"
-database = "sys_transacao"
-table = "transacao"
+database = "sys_cadastro"
+table = "Sys_Cadastro"
 id_field = "Nome"
 timestamp_field ="modified_date"
-checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/
+checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"""
 
-"""
+
 catalog = "bronze"
 database = dbutils.widgets.get("database")
 table = dbutils.widgets.get("table")

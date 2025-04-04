@@ -1,0 +1,47 @@
+{
+  "fields": [
+    {
+      "metadata": {},
+      "name": "Nome",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Idade",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Estado",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Cidade",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Renda_Mensal",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Profissao",
+      "nullable": true,
+      "type": "string"
+    },
+    {
+      "metadata": {},
+      "name": "Tempo_de_Cliente_anos",
+      "nullable": true,
+      "type": "string"
+    }
+  ],
+  "type": "struct"
+}
