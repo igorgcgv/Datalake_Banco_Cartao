@@ -21,7 +21,7 @@ database = "sys_cadastro"
 table = "cadastro"
 id_field = "Nome"
 timestamp_field ="modified_date"
-checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/""""
+checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"""
 
 
 catalog = "bronze"
