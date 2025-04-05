@@ -39,7 +39,7 @@ if not utils.table_exists(spark,catalog,database,table):
 
     print("Table does not exist")
 
-    dbutils.fs.rm(checkpoint_location,True)
+    #dbutils.fs.rm(checkpoint_location,True)
 
     ingest_full_load = ingestors.ingestor(spark=spark,
                                             catalog=catalog,
