@@ -12,6 +12,14 @@ import ingestors
 
 # COMMAND ----------
 
+print(utils.__file__)
+
+# COMMAND ----------
+
+utils.import_query("asdasd")
+
+# COMMAND ----------
+
 # DBTITLE 1,Variaveis
 
 # Usar como exemplo
