@@ -28,6 +28,7 @@ class ingestor:
         (df.coalesce(1)
             .write
             .format("delta")
+            .option("delta.enableChangeDataFeed", "true")  # Habilita CDF
             .mode("overwrite")
             .saveAsTable(f"{self.catalog}.{self.database}.{self.table}"))
         return True
@@ -92,7 +93,7 @@ class ingestorCDF(ingestorCDC):
         super().__init__(spark=spark,
                          catalog=catalog,
                          schemaname=schemaname,
-                         tablename=tablename,
+                         table=tablename,
                          data_format='delta',
                          id_field=id_field,
                          timestamp_field='_commit_timestamp')

@@ -12,32 +12,24 @@ import ingestors
 
 # COMMAND ----------
 
-print(utils.__file__)
-
-# COMMAND ----------
-
-utils.import_query("asdasd")
-
-# COMMAND ----------
-
 # DBTITLE 1,Variaveis
 
 # Usar como exemplo
 
-"""catalog = "bronze"
+catalog = "bronze"
 database = "sys_cadastro"
 table = "cadastro"
 id_field = "Nome"
 timestamp_field ="modified_date"
-checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"""
+checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"
 
 
-catalog = "bronze"
+"""catalog = "bronze"
 database = dbutils.widgets.get("database")
 table = dbutils.widgets.get("table")
 id_field = dbutils.widgets.get("id_field")
 timestamp_field = dbutils.widgets.get("timestamp_field")
-checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"
+checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"""
 
 
 # COMMAND ----------
