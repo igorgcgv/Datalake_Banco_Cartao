@@ -72,8 +72,10 @@ ingest = ingestors.ingestorCDF(spark=spark,
                                catalog=catalog,
                                database=database,
                                table=table,
+                               data_format='delta',
                                id_field=idfield,
-                               idfield_old=idfield_old)
+                               idfield_old=idfield_old,
+                               timestamp_field='_commit_timestamp')
 
 if remove_checkpoint:
     dbutils.fs.rm(ingest.checkpoint_location, True)

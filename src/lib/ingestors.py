@@ -91,13 +91,13 @@ class ingestorCDF(ingestorCDC):
     def __init__(self, spark, catalog, database, table, id_field, idfield_old):
         
         super().__init__(spark=spark,
-                         catalog=catalog,
-                         database=database,
-                         table=table,
-                         data_format='delta',
-                         id_field=id_field,
-                         timestamp_field='_commit_timestamp')   
-        
+                        catalog=catalog,
+                        database=database,
+                        table=table,
+                        data_format='delta',
+                        id_field=id_field,
+                        timestamp_field='_commit_timestamp')   
+    
         self.idfield_old = idfield_old
         self.set_query()
         self.checkpoint_location = f"/Volumes/raw/{database}/cdc/{catalog}_{table}_checkpoint/"
@@ -106,7 +106,7 @@ class ingestorCDF(ingestorCDC):
         return
 
     def set_query(self):
-        query = utils.import_query(f"{self.tablename}.sql")
+        query = utils.import_query(f"{self.table}.sql")
         self.from_table = utils.extract_from(query=query)
         self.original_query = query
         self.query = utils.format_query_cdf(query, "{df}")
