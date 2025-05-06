@@ -96,7 +96,7 @@ class ingestorCDF(ingestorCDC):
                          table=tablename,
                          data_format='delta',
                          id_field=id_field,
-                         timestamp_field='_commit_timestamp')
+                         timestamp_field='_commit_timestamp')   
         
         self.idfield_old = idfield_old
         self.set_query()
@@ -126,24 +126,34 @@ class ingestorCDF(ingestorCDC):
         return stream.start()
     
     def upsert(self, df):
-        df.createOrReplaceGlobalTempView(f"silver_{self.tablename}")
+        #df.createOrReplaceGlobalTempView(f"silver_{self.tablename}")
 
-        query_last = f"""
-        SELECT *
-        FROM global_temp.silver_{self.tablename}
-        WHERE _change_type <> 'update_preimage'
-        QUALIFY ROW_NUMBER() OVER (PARTITION BY {self.idfield_old} ORDER BY _commit_timestamp DESC) = 1
-        """
+        #query_last = f"""
+        #SELECT *
+        #FROM global_temp.silver_{self.tablename}
+        #WHERE _change_type <> 'update_preimage'
+        #QUALIFY ROW_NUMBER() OVER (PARTITION BY {self.idfield_old} ORDER BY _commit_timestamp DESC) = 1
+        #"""
+        #df_last = self.spark.sql(query_last)
+        #df_upsert = self.spark.sql(self.query, df=df_last)
+        window_spec = Window.partitionBy(self.idfield_old).orderBy(col(self._commit_timestamp).desc())
+
+        query_last = df.withColumn("row_num", row_number().over(window_spec)) \
+            .filter("row_num = 1") \
+            .drop("row_num")
+        
+        
         df_last = self.spark.sql(query_last)
         df_upsert = self.spark.sql(self.query, df=df_last)
 
+
         (self.deltatable
-             .alias("s")
-             .merge(df_upsert.alias("d"), f"s.{self.id_field} = d.{self.id_field}") 
-             .whenMatchedDelete(condition = "d._change_type = 'delete'")
-             .whenMatchedUpdateAll(condition = "d._change_type = 'update_postimage'")
-             .whenNotMatchedInsertAll(condition = "d._change_type = 'insert' OR d._change_type = 'update_postimage'")
-               .execute())
+            .alias("s")
+            .merge(df_upsert.alias("d"), f"s.{self.id_field} = d.{self.id_field}") 
+            .whenMatchedDelete(condition = "d._change_type = 'delete'")
+            .whenMatchedUpdateAll(condition = "d._change_type = 'update_postimage'")
+            .whenNotMatchedInsertAll(condition = "d._change_type = 'insert' OR d._change_type = 'update_postimage'")
+            .execute())
 
     def execute(self):
         df = self.load()
