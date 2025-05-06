@@ -88,19 +88,19 @@ class ingestorCDC(ingestor):
 
 class ingestorCDF(ingestorCDC):
 
-    def __init__(self, spark, catalog, schemaname, tablename, id_field, idfield_old):
+    def __init__(self, spark, catalog, database, table, id_field, idfield_old):
         
         super().__init__(spark=spark,
                          catalog=catalog,
-                         schemaname=schemaname,
-                         table=tablename,
+                         database=database,
+                         table=table,
                          data_format='delta',
                          id_field=id_field,
                          timestamp_field='_commit_timestamp')   
         
         self.idfield_old = idfield_old
         self.set_query()
-        self.checkpoint_location = f"/Volumes/raw/{schemaname}/cdc/{catalog}_{tablename}_checkpoint/"
+        self.checkpoint_location = f"/Volumes/raw/{database}/cdc/{catalog}_{table}_checkpoint/"
 
     def set_schema(self):
         return
@@ -136,9 +136,11 @@ class ingestorCDF(ingestorCDC):
         #"""
         #df_last = self.spark.sql(query_last)
         #df_upsert = self.spark.sql(self.query, df=df_last)
+
+        df_filtered = df.filter(col("_change_type") != "update_preimage")
         window_spec = Window.partitionBy(self.idfield_old).orderBy(col(self._commit_timestamp).desc())
 
-        query_last = df.withColumn("row_num", row_number().over(window_spec)) \
+        query_last = df_filtered.withColumn("row_num", row_number().over(window_spec)) \
             .filter("row_num = 1") \
             .drop("row_num")
         

@@ -1,4 +1,12 @@
 # Databricks notebook source
+import sys
+
+sys.path.insert(0, '../lib/')
+import os
+import ingestors
+import utils
+
+
 def import_query(path):
     with open(path, 'r') as f:
         return f.read()
@@ -17,16 +25,12 @@ query = import_query(f"{table}.sql")
 
 
 
-sys.path.insert(0, '../lib/')
-
-import os
-import ingestors
-import utils
-import sys
 
 
 
-tablename = "cliente"
+
+
+table = "cliente"
 idfield = "id_field"
 idfield_old = "id_field_old"
 
@@ -37,7 +41,7 @@ idfield = dbutils.widgets.get("id_field")
 idfield_old = dbutils.widgets.get("id_field_old")"""
 
 catalog = "silver"
-schemaname = "sys_cadastro"
+database = "sys_cadastro"
 
 # COMMAND ----------
 
@@ -47,16 +51,16 @@ print(utils.__file__)
 
 remove_checkpoint = False
 
-if not utils.table_exists(spark, "silver", schemaname, tablename):
+if not utils.table_exists(spark, "silver", database, table):
 
-    print("Criando a tabela", tablename)
-    query = import_query(f"{tablename}.sql")
+    print("Criando a tabela", table)
+    query = import_query(f"{table}.sql")
     (spark.sql(query)
           .write
           .format("delta")
           .mode("overwrite")
           .option("overwriteSchema", "true")
-          .saveAsTable(f"silver.{schemaname}.silver_{tablename}"))
+          .saveAsTable(f"silver.{database}.silver_{table}"))
     
     remove_checkpoint = True
 
@@ -66,8 +70,8 @@ print("Iniciando CDF...")
 
 ingest = ingestors.ingestorCDF(spark=spark,
                                catalog=catalog,
-                               schema=schemaname,
-                               table=tablename,
+                               database=database,
+                               table=table,
                                id_field=idfield,
                                idfield_old=idfield_old)
 
