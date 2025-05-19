@@ -12,9 +12,9 @@ class ingestor:
         self.catalog = catalog
         self.database = database
         self.table = table
-        self.id_field = id_field
-        self.timestamp_field = timestamp_field
         self.format = data_format
+        self.id_field = id_field
+        self.timestamp_field = timestamp_field        
         self.set_schema()
 
     def set_schema(self):
