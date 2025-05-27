@@ -16,20 +16,21 @@ import ingestors
 
 # Usar como exemplo
 
-"""catalog = "bronze"
-database = "sys_transacao"
-table = "transacao"
+catalog = "bronze"
+database = "sys_cadastro"
+table = "cadastro"
 id_field = "Nome"
 timestamp_field ="modified_date"
-checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/
+checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"
 
-"""
-catalog = "bronze"
+
+"""catalog = "bronze"
 database = dbutils.widgets.get("database")
 table = dbutils.widgets.get("table")
 id_field = dbutils.widgets.get("id_field")
 timestamp_field = dbutils.widgets.get("timestamp_field")
-checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"
+checkpoint_location = f"/Volumes/raw/{database}/cdc/{table}_checkpoint/"""
+
 
 # COMMAND ----------
 
@@ -38,16 +39,18 @@ if not utils.table_exists(spark,catalog,database,table):
 
     print("Table does not exist")
 
-    dbutils.fs.rm(checkpoint_location,True)
+    #dbutils.fs.rm(checkpoint_location,True)
 
     ingest_full_load = ingestors.ingestor(spark=spark,
                                             catalog=catalog,
                                             database=database,
                                             table=table,
-                                            data_format="csv")
+                                            data_format="csv",
+                                            id_field=id_field,
+                                            timestamp_field=timestamp_field)
 
     
-    ingest_full_load.execute(f"/Volumes/raw/{database}/full_load/{table}/")
+    ingest_full_load.execute(f"/Volumes/raw/{database}/full_load/")
 
 else :
     print("Table already exists")
